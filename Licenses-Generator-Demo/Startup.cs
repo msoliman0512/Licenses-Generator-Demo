@@ -63,7 +63,7 @@ namespace Licenses_Generator_Demo
 
             using var scope = app.ApplicationServices.CreateScope();
             var migrator = scope.ServiceProvider.GetService<IMigrationRunner>();
-            migrator.ListMigrations();
+            migrator.MigrateUp();
         }
     }
 }
