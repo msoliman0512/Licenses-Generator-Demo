@@ -5,4 +5,8 @@
     <RootNamespace>Licenses_Generator_Demo</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentMigrator.Runner" Version="3.2.7" />
+  </ItemGroup>
+
 </Project>
