@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SD.LLBLGen.Pro.DQE.SqlServer;
+using SD.LLBLGen.Pro.ORMSupportClasses;
 
 namespace Licenses_Generator_Demo
 {
@@ -63,7 +65,21 @@ namespace Licenses_Generator_Demo
 
             using var scope = app.ApplicationServices.CreateScope();
             var migrator = scope.ServiceProvider.GetService<IMigrationRunner>();
-            migrator.MigrateUp();
+             migrator.MigrateUp();
+            // migrator.MigrateDown(0);
+
+            LLBLGen(Configuration);
+        }
+        public static void LLBLGen(IConfiguration config)
+        {
+            RuntimeConfiguration.AddConnectionString("ConnectionString.SQL Server (SqlClient)", config["ConnectionStrings:Licenses_Generator.Module"]);
+            RuntimeConfiguration.ConfigureDQE<SQLServerDQEConfiguration>(c =>
+            {
+                c.AddDbProviderFactory(typeof(System.Data.SqlClient.SqlClientFactory))
+                    .SetDefaultCompatibilityLevel(SqlServerCompatibilityLevel.SqlServer2012);
+
+                c.SetTraceLevel(System.Diagnostics.TraceLevel.Verbose);
+            });
         }
     }
 }
