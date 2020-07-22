@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.30309.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Licenses-Generator-Demo", "Licenses-Generator-Demo\Licenses-Generator-Demo.csproj", "{4AE2FC95-1C96-483F-98FD-475937C60583}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Licenses_Generator_DBFirst", "C:\Users\M.Soliman\Documents\LLBLGen Pro\v5.7\Projects\Licenses_Generator_DBFirst\DatabaseGeneric\Licenses_Generator_DBFirst.csproj", "{11CCE80F-175E-476F-BBC1-459E5BDB19EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Licenses_Generator_DBFirst", "C:\Users\M.Soliman\Documents\LLBLGen Pro\v5.7\Projects\Licenses_Generator_DBFirst\DatabaseGeneric\Licenses_Generator_DBFirst.csproj", "{F6EAEDEF-4113-4FAE-9761-E10487B7EABF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Licenses_Generator_DBFirstDBSpecific", "C:\Users\M.Soliman\Documents\LLBLGen Pro\v5.7\Projects\Licenses_Generator_DBFirst\DatabaseSpecific\Licenses_Generator_DBFirstDBSpecific.csproj", "{718C62B0-15D7-4961-BB07-CA95F6B247D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Licenses_Generator_DBFirstDBSpecific", "C:\Users\M.Soliman\Documents\LLBLGen Pro\v5.7\Projects\Licenses_Generator_DBFirst\DatabaseSpecific\Licenses_Generator_DBFirstDBSpecific.csproj", "{599AFED5-4A0B-4B19-A539-674945587FD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{4AE2FC95-1C96-483F-98FD-475937C60583}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AE2FC95-1C96-483F-98FD-475937C60583}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AE2FC95-1C96-483F-98FD-475937C60583}.Release|Any CPU.Build.0 = Release|Any CPU
-		{11CCE80F-175E-476F-BBC1-459E5BDB19EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{11CCE80F-175E-476F-BBC1-459E5BDB19EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{11CCE80F-175E-476F-BBC1-459E5BDB19EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{11CCE80F-175E-476F-BBC1-459E5BDB19EB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{718C62B0-15D7-4961-BB07-CA95F6B247D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{718C62B0-15D7-4961-BB07-CA95F6B247D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{718C62B0-15D7-4961-BB07-CA95F6B247D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{718C62B0-15D7-4961-BB07-CA95F6B247D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6EAEDEF-4113-4FAE-9761-E10487B7EABF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6EAEDEF-4113-4FAE-9761-E10487B7EABF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6EAEDEF-4113-4FAE-9761-E10487B7EABF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6EAEDEF-4113-4FAE-9761-E10487B7EABF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{599AFED5-4A0B-4B19-A539-674945587FD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{599AFED5-4A0B-4B19-A539-674945587FD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{599AFED5-4A0B-4B19-A539-674945587FD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{599AFED5-4A0B-4B19-A539-674945587FD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
