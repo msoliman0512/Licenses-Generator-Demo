@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using FluentMigrator.Runner;
+using Licenses_Generator_Demo.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +29,8 @@ namespace Licenses_Generator_Demo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddServerSideBlazor();
+            services.AddTransient<GovernoratesService>(); // add our Service
             services.AddFluentMigratorCore().ConfigureRunner(config => config.AddSqlServer()
                 .WithGlobalConnectionString("Data Source=DESKTOP-T5SCRE7;Initial Catalog=Licenses-Generator;Persist Security Info=True;User ID=SA;Password=Mahmoud_Soliman0512")
                 .ScanIn(Assembly.GetExecutingAssembly()).For.All()).AddLogging(config => config.AddFluentMigratorConsole());   /* .ScanIn(typeof(AddLogTable).Assembly).For.Migrations())
@@ -61,6 +64,7 @@ namespace Licenses_Generator_Demo
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapBlazorHub();
             });
 
             using var scope = app.ApplicationServices.CreateScope();
