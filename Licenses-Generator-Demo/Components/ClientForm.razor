@@ -2,6 +2,7 @@
 @using Licenses_Generator_Demo.Services
 @using Microsoft.AspNetCore.Components.Web
 @inject GovernoratesService GovernorateService
+@inject CitiesService CityService
 
 <div class="container">
     <h2>User Info</h2>
@@ -46,15 +47,24 @@
                     <label for="inputCity">City</label>
                     <select id="inputCity" class="form-control" required>
                         <option hidden disabled selected value=""> -- Choose Your City -- </option>
-
-                        @for(int i = 0; i < 5; i++)
+                        @if (selectedGovernorateId != null)
                         {
-                            @if(selectedGovernorateId != "")
+                            @if (cities != null)
                             {
-                                <option value=""> @selectedGovernorateId</option>
+                                int selectedGovernorateIdInt = int.Parse(selectedGovernorateId);
+                                IEnumerable<CityEntity> selectedCities = from city in cities where city.GovernorateId == selectedGovernorateIdInt select city;
+                                @foreach (var city in selectedCities)
+                                {
+
+                                    <option value="@city.Id"> @city.Name</option>
+
+
+                                }
                             }
-                           
-                        }
+                        }s
+
+
+
                     </select>
                     <div class="valid-feedback">Valid.</div>
                     <div class="invalid-feedback">Please Choose an Option.</div>
@@ -111,6 +121,7 @@
 </div>
 @code {
     public IEnumerable<GovernorateEntity> governorates;
+    public IEnumerable<CityEntity> cities;
 
     protected override async Task OnInitializedAsync()
     {
@@ -124,8 +135,20 @@
         {
 
         }
+
+        Task<IEnumerable<CityEntity>> asyncCities = CityService.GetCitiesAsync();
+        cities = await asyncCities;
+        if (Utils.Utility.IsAnyProduct(cities))
+        {
+            // Do something
+        }
+        else
+        {
+
+        }
     }
-    GovernorateEntity selectedGovernorate;
+
+    // GovernorateEntity selectedGovernorate;
     string selectedGovernorateId;
 
     void SelectGovernorate(string governorateId)
