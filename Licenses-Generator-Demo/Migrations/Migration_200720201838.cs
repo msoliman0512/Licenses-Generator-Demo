@@ -1,8 +1,4 @@
 ﻿using FluentMigrator;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Licenses_Generator_Demo.Migrations
 {
@@ -42,7 +38,7 @@ namespace Licenses_Generator_Demo.Migrations
               .WithColumn("id").AsInt32().NotNullable().Identity().PrimaryKey()
               .WithColumn("name").AsString().NotNullable()
               .WithColumn("username").AsString().NotNullable()
-              .WithColumn("password").AsString().NotNullable()               
+              .WithColumn("password").AsString().NotNullable()
               .WithColumn("role").AsString().NotNullable();
 
             Create.Table("License_Request")
@@ -70,10 +66,9 @@ namespace Licenses_Generator_Demo.Migrations
             Create.Table("Documents")
            .WithColumn("id").AsInt32().NotNullable().Identity().PrimaryKey()
            .WithColumn("link").AsString().NotNullable()
-           .WithColumn("comments").AsString().NotNullable()                 
+           .WithColumn("comments").AsString().NotNullable()
            .WithColumn("RequestId").AsInt32().NotNullable().ForeignKey("License_Request", "id")
            .WithColumn("ClientId").AsInt32().NotNullable().ForeignKey("Client", "id");
-
         }
     }
 }

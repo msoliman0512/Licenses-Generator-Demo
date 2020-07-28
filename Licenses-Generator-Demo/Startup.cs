@@ -1,18 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using FluentMigrator.Runner;
 using Licenses_Generator_Demo.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SD.LLBLGen.Pro.DQE.SqlServer;
 using SD.LLBLGen.Pro.ORMSupportClasses;
+using System.Reflection;
 
 namespace Licenses_Generator_Demo
 {
@@ -69,11 +64,12 @@ namespace Licenses_Generator_Demo
 
             using var scope = app.ApplicationServices.CreateScope();
             var migrator = scope.ServiceProvider.GetService<IMigrationRunner>();
-             migrator.MigrateUp();
+            migrator.MigrateUp();
             // migrator.MigrateDown(0);
 
             LLBLGen(Configuration);
         }
+
         public static void LLBLGen(IConfiguration config)
         {
             RuntimeConfiguration.AddConnectionString("ConnectionString.SQL Server (SqlClient)", config["ConnectionStrings:Licenses_Generator.Module"]);

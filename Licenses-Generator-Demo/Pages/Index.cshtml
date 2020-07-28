@@ -1,32 +1,28 @@
 ﻿@page
 @using Licenses_Generator_Demo.Components
-@using Licenses_Generator_Demo.Services 
+@using Licenses_Generator_Demo.Services
 @using Licenses_Generator_Demo.Pages
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
-
 @using Licenses_Generator_DBFirst.DatabaseSpecific;
 @using Licenses_Generator_DBFirst.Linq;
 
-
-    <div class="text-center">
-        @*@using (var adapter = new DataAccessAdapter())
+<div class="text-center">
+    @*@using (var adapter = new DataAccessAdapter())
         {
             var metaData = new LinqMetaData(adapter);
             var count = metaData.Governorate.Count();
             <h4> Egypt's Governorate = @count</h4>
          }*@
 
-
-
-        @{ 
+    @{
 
         @*<h4> Egypt's Governorate = @Model.GovernorateService.GetGovernorates().Count()</h4>*@
-            }
-        @*@{
+    }
+    @*@{
             var newCityEntity = new Licenses_Generator_DBFirst.EntityClasses.CityEntity
             {
                 Name = "Benha",
@@ -37,10 +33,9 @@
                 adapter.SaveEntity(newCityEntity);
             }
         }*@
-        <h1 class="display-4">Welcome</h1>
-        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-
-    </div>
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
 
 @(await Html.RenderComponentAsync<ClientForm>(RenderMode.ServerPrerendered))
 
