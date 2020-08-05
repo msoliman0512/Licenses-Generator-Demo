@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Licenses_Generator_Demo.Services
 {
-    public class ClientsServices
+    public class ClientsService
     {
-        public ClientsServices(IWebHostEnvironment webHostEnvironment)
+        public ClientsService(IWebHostEnvironment webHostEnvironment)
         {
             WebHostEnvironment = webHostEnvironment;
         }
