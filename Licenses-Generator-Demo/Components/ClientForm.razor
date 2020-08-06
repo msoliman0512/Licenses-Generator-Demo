@@ -1,31 +1,39 @@
 ﻿
 @using Licenses_Generator_DBFirst.EntityClasses
+@using Licenses_Generator_DBFirst.Linq
+@using Licenses_Generator_DBFirst.DatabaseSpecific
 @using Licenses_Generator_Demo.Services
 @using Microsoft.AspNetCore.Components.Web
 @inject GovernoratesService GovernorateService
 @inject CitiesService CityService
 @inject AddressesService AddressService
-@inject ClientsService ClienServices
+@inject ClientsService ClientService
 
 <div class="container">
     <h2>User Info</h2>
     <form class="was-validated">
         <div class="form-group">
             <label for="name">Full Name</label>
-            <input type="text" class="form-control" id="name" placeholder="Enter your full name" name="name" pattern="([A-Za-z]{2,40})([ ]{0,1})+(([A-Za-z]{2,40})([ ]{0,1})+(([A-Za-z]{2,40})([ ]{0,1})+(([A-Za-z]{2,40})([ ]{0,1})+([A-Za-z]{2,40}))))" required>
+            <input value="@name"
+                   @onchange="@((ChangeEventArgs __e) => name =
+        __e.Value.ToString())" type="text" class="form-control" id="name" placeholder="Enter your full name" name="name" pattern="([A-Za-z]{2,40})([ ]{0,1})+(([A-Za-z]{2,40})([ ]{0,1})+(([A-Za-z]{2,40})([ ]{0,1})+(([A-Za-z]{2,40})([ ]{0,1})+([A-Za-z]{2,40}))))" required>
             <div class="valid-feedback">Valid.</div>
             <div class="invalid-feedback">Please fill out this field.</div>
             <small id="emailHelp" class="form-text text-muted">Maximum words are 5.</small>
         </div>
         <div class="form-group">
             <label for="nat_id">National ID</label>
-            <input type="text" class="form-control" id="nat_id" placeholder="Enter Your National ID" name="nat_id" pattern="(2|3)[0-9][1-9][0-1][1-9][0-3][1-9](01|02|03|04|11|12|13|14|15|16|17|18|19|21|22|23|24|25|26|27|28|29|31|32|33|34|35|88)\d\d\d\d\d" required>
+            <input value="@nationalId"
+                   @onchange="@((ChangeEventArgs __e) => nationalId =
+        __e.Value.ToString())" type="text" class="form-control" id="nat_id" placeholder="Enter Your National ID" name="nat_id" pattern="(2|3)[0-9][1-9][0-1][1-9][0-3][1-9](01|02|03|04|11|12|13|14|15|16|17|18|19|21|22|23|24|25|26|27|28|29|31|32|33|34|35|88)\d\d\d\d\d" required>
             <div class="valid-feedback">Valid.</div>
             <div class="invalid-feedback">Please fill out this field.</div>
         </div>
         <div class="form-group">
             <label for="inputAddress">Address</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St, Apartment, studio, or floor" required>
+            <input value="@address"
+                   @onchange="@((ChangeEventArgs __e) => address =
+        __e.Value.ToString())" type="text" class="form-control" id="inputAddress" placeholder="1234 Main St, Apartment, studio, or floor" required>
             <div class="valid-feedback">Valid.</div>
             <div class="invalid-feedback">Please fill out this field.</div>
         </div>
@@ -34,7 +42,7 @@
                 <div class="form-group col-md-6">
                     <label for="inputState">Governorate</label>
                     <select id="inputState" class="form-control" @bind="@selectedGovernorateId" required>
-                        <option hidden disabled selected value=""> -- Choose Your Governorate -- </option>
+                        <option hidden disabled selected value="-1"> -- Choose Your Governorate -- </option>
                         @if (governorates != null)
                         {
                             @foreach (var governorate in governorates)
@@ -48,7 +56,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inputCity">City</label>
-                    <select id="inputCity" class="form-control" required>
+                    <select id="inputCity" class="form-control" @bind="@selectedCityId" required>
                         <option hidden disabled selected value=""> -- Choose Your City -- </option>
                         @if (selectedGovernorateId != null)
                         {
@@ -74,7 +82,9 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label for="inputZip">Zip</label>
-                    <input type="text" class="form-control" id="inputZip" pattern="[0-9]{5}" required>
+                    <input value="@zipCode"
+                           @onchange="@((ChangeEventArgs __e) => zipCode =
+        __e.Value.ToString())" type="text" class="form-control" id="inputZip" pattern="[0-9]{5}" required>
                 </div>
             </div>
         }
@@ -84,7 +94,8 @@
             <div class="valid-feedback">Valid.</div>
             <div class="invalid-feedback">Check this checkbox to continue.</div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button @onclick="(e => CreateNewClientRequest())" type="submit" class="btn btn-primary">Submit</button>
+        @{Console.WriteLine("Client Form");}
     </form>
     @*<form action="/action_page.php" class="was-validated">
             <div class="form-group">
@@ -126,6 +137,13 @@
     public IEnumerable<GovernorateEntity> governorates;
     public IEnumerable<CityEntity> cities;
 
+    string selectedGovernorateId { get; set; }
+    int selectedCityId { get; set; }
+    string name { get; set; }
+    string nationalId { get; set; }
+    string address { get; set; }
+    string zipCode { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         Task<IEnumerable<GovernorateEntity>> asyncGovernorates = GovernorateService.GetGovernoratesAsync();
@@ -152,11 +170,39 @@
     }
 
     // GovernorateEntity selectedGovernorate;
-    string selectedGovernorateId;
+
 
     void SelectGovernorate(string governorateId)
     {
         selectedGovernorateId = governorateId;
+    }
+
+    public async Task CreateNewClientRequest()
+    {
+        var clientEntity = new ClientEntity
+        {
+            Name = name,
+            NationalId = nationalId
+        };
+        var clientEntitySuccessFlag = await ClientService.SaveClient(clientEntity);
+        if (!clientEntitySuccessFlag)
+            throw new Exception("Exception at saving Client Entity");
+
+        var slectedCity = from city in cities where city.Id == selectedCityId select city.Name;
+        int selectedGovernorateIdInt = int.Parse(selectedGovernorateId);
+        var slectedGovernorate = from governorate in governorates where governorate.Id == selectedGovernorateIdInt select governorate.Name;
+
+        var addressEntity = new AddressEntity
+        {
+            ClientId = clientEntity.Id,
+            Address = address,
+            City = slectedCity.FirstOrDefault(),
+            Governorate = slectedGovernorate.FirstOrDefault(),
+            Zip = zipCode
+        };
+        var addressEntitySuccessFlag = await AddressService.SaveAddress(addressEntity);
+        if (!addressEntitySuccessFlag)
+            throw new Exception("Exception at saving Address Entity");
     }
 
 }

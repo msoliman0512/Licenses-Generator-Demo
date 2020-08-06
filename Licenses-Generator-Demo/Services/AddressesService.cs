@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using SD.LLBLGen.Pro.LinqSupportClasses;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,6 +19,7 @@ namespace Licenses_Generator_Demo.Services
         }
 
         public IWebHostEnvironment WebHostEnvironment { get; }
+        public object Command { get; private set; }
 
         public async Task<IEnumerable<AddressEntity>> GetAddressesAsync()
         {
@@ -42,11 +44,11 @@ namespace Licenses_Generator_Demo.Services
             }
         }
 
-        public void SaveAddress(AddressEntity addressEntity)
+        public async Task<bool> SaveAddress(AddressEntity addressEntity)
         {
             using (var adapter = new DataAccessAdapter())
             {
-                adapter.SaveEntity(addressEntity);
+                return await adapter.SaveEntityAsync(addressEntity, refetchAfterSave: true);
             }
         }
     }

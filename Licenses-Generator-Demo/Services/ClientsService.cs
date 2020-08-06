@@ -42,11 +42,11 @@ namespace Licenses_Generator_Demo.Services
             }
         }
 
-        public void SaveClient(ClientEntity clientEntity)
+        public async Task<bool> SaveClient(ClientEntity clientEntity)
         {
             using (var adapter = new DataAccessAdapter())
             {
-                adapter.SaveEntity(clientEntity);
+                return await adapter.SaveEntityAsync(clientEntity, refetchAfterSave: true);
             }
         }
     }
