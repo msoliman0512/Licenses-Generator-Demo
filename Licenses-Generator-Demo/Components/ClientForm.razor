@@ -4,10 +4,13 @@
 @using Licenses_Generator_DBFirst.DatabaseSpecific
 @using Licenses_Generator_Demo.Services
 @using Microsoft.AspNetCore.Components.Web
+@using System.IO
 @inject GovernoratesService GovernorateService
 @inject CitiesService CityService
 @inject AddressesService AddressService
 @inject ClientsService ClientService
+@inject Microsoft.JSInterop.IJSRuntime jsRuntime;
+@page "/Index"
 
 <div class="container">
     <h2>User Info</h2>
@@ -72,7 +75,7 @@
 
                                 }
                             }
-                        }s
+                        }
 
 
 
@@ -89,8 +92,8 @@
             </div>
         }
         <div class="custom-file mb-3">
-            <input type="file" class="custom-file-input" id="validatedCustomFile" required>
-            <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+            <input type="file" class="custom-file-input" id="uploadedFile" required>
+            <label class="custom-file-label" for="uploadedFile" > @fileName </label>
             <div class="invalid-feedback">Example invalid custom file feedback</div>
         </div>
 
@@ -140,15 +143,19 @@
         </form>*@
 </div>
 @code {
-    public IEnumerable<GovernorateEntity> governorates;
-    public IEnumerable<CityEntity> cities;
+        public IEnumerable<GovernorateEntity> governorates;
+        public IEnumerable<CityEntity> cities;
 
-    string selectedGovernorateId { get; set; }
-    int selectedCityId { get; set; }
-    string name { get; set; }
-    string nationalId { get; set; }
-    string address { get; set; }
-    string zipCode { get; set; }
+        string selectedGovernorateId { get; set; }
+        int selectedCityId { get; set; }
+        string name { get; set; }
+        string nationalId { get; set; }
+        string address { get; set; }
+        string zipCode { get; set; }
+
+        string fileName = "Choose file...";
+        object selectedFile {get; set;}
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -211,4 +218,8 @@
             throw new Exception("Exception at saving Address Entity");
     }
 
+
+
 }
+
+

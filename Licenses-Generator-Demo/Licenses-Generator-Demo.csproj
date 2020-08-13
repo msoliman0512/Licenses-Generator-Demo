@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BlazorInputFile" Version="0.2.0" />
     <PackageReference Include="bootstrap" Version="4.5.0" />
     <PackageReference Include="FluentMigrator.Runner" Version="3.2.7" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
@@ -23,6 +24,11 @@
     <Reference Include="SD.LLBLGen.Pro.ORMSupportClasses">
       <HintPath>C:\Program Files (x86)\Solutions Design\LLBLGen Pro v5.7\Frameworks\LLBLGen Pro\RuntimeLibraries\CompiledRuntimeLibraries\SD.LLBLGen.Pro.ORMSupportClasses.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="UploadedFiles\" />
   </ItemGroup>
 
 </Project>
