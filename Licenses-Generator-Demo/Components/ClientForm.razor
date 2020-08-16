@@ -97,8 +97,10 @@
             <label class="custom-file-label" for="uploadedFile" > @fileName </label>
             <div class="invalid-feedback">Example invalid custom file feedback</div>
         </div>*@
-    <div class="form-control">
-        <InputFile OnChange="HandleFileSelected" />
+    <div class="custom-file mb-3">
+        <InputFile OnChange="HandleFileSelected"  id="uploadedFile" required/>
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please Upload your documents.</div>
     </div>
             @if (file != null)
             {
