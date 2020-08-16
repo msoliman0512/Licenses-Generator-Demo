@@ -5,7 +5,6 @@
 @using Licenses_Generator_Demo.Services
 @using Microsoft.AspNetCore.Components.Web
 @using System.IO
-@using Licenses_Generator_Demo.Services
 @using BlazorInputFile
 @inject GovernoratesService GovernorateService
 @inject CitiesService CityService
@@ -98,22 +97,24 @@
             <label class="custom-file-label" for="uploadedFile" > @fileName </label>
             <div class="invalid-feedback">Example invalid custom file feedback</div>
         </div>*@
-        <InputFile OnChange="HandleFileSelected" id="uploadedFile" required />
-        @if (file != null)
-        {
-            <span>File Name: @file.Name </span>
-            <span>Size: @file.Size </span>
-            <span>File Type: @file.Type</span>
-        }
-        <div class="invalid-feedback">Example invalid custom file feedback</div>
-        <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="agree_check_box" name="agree_check_box" required>
-            <label class="form-check-label" for="exampleCheck1">I confirm that the information given in this form is true, complete and accurate.</label>
-            <div class="valid-feedback">Valid.</div>
-            <div class="invalid-feedback">Check this checkbox to continue.</div>
-        </div>
-        <button @onclick="(e => CreateNewClientRequest())" type="submit" class="btn btn-primary">Submit</button>
-        @{Console.WriteLine("Client Form");}
+    <div class="form-control">
+        <InputFile OnChange="HandleFileSelected" />
+    </div>
+            @if (file != null)
+            {
+                <span>File Name: @file.Name </span>
+                <span>Size: @file.Size </span>
+                <span>File Type: @file.Type</span>
+            }
+
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="agree_check_box" name="agree_check_box" required>
+                <label class="form-check-label" for="exampleCheck1">I confirm that the information given in this form is true, complete and accurate.</label>
+                <div class="valid-feedback">Valid.</div>
+                <div class="invalid-feedback">Check this checkbox to continue.</div>
+            </div>
+            <button @onclick="(e => CreateNewClientRequest())" type="submit" class="btn btn-primary">Submit</button>
+            @{Console.WriteLine("Client Form");}
     </form>
     @*<form action="/action_page.php" class="was-validated">
             <div class="form-group">
@@ -162,7 +163,7 @@
     string address { get; set; }
     string zipCode { get; set; }
 
-    string fileName = "Choose file...";
+    //string fileName = "Choose file...";
     IFileListEntry file;
 
     async Task HandleFileSelected(IFileListEntry[] files)

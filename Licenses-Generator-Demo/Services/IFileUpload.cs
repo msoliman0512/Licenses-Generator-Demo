@@ -10,6 +10,6 @@ namespace Licenses_Generator_Demo.Services
     {
 
 
-        Task Upload(IFileListEntry file);
+        public  Task Upload(IFileListEntry file);
     }
 }
