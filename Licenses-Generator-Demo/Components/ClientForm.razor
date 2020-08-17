@@ -17,6 +17,21 @@
 <div class="container">
     <h2>User Info</h2>
     <form class="was-validated">
+        <div class="form-group col-md-4">
+            <label for="licenseType">License Type</label>
+            <select id="licenseType" class="form-control" @bind="@selectedLicenseTypeId" required>
+                <option hidden disabled selected value="-1"> -- Choose The License Type -- </option>
+                @if (licensesTypes != null)
+                {
+                    @foreach (var licenseType in licensesTypes)
+                    {
+                        <option value="@licenseType.Id">@licenseType.Type</option>
+                    }
+                }
+            </select>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please Choose an Option.</div>
+        </div>
         <div class="form-group">
             <label for="name">Full Name</label>
             <input value="@name"
@@ -98,26 +113,26 @@
             <label class="custom-file-label" for="uploadedFile" > @fileName </label>
             <div class="invalid-feedback">Example invalid custom file feedback</div>
         </div>*@
-    <div class="custom-file mb-3">
-        <InputFile OnChange="HandleFileSelected"  id="uploadedFile" required/>
-        <div class="valid-feedback">Valid.</div>
-        <div class="invalid-feedback">Please Upload your documents.</div>
-    </div>
-            @if (file != null)
-            {
-                <span>File Name: @file.Name </span>
-                <span>Size: @file.Size </span>
-                <span>File Type: @file.Type</span>
-            }
+        <div class="custom-file mb-3">
+            <InputFile OnChange="HandleFileSelected" id="uploadedFile" required />
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please Upload your documents.</div>
+        </div>
+        @if (file != null)
+        {
+            <span>File Name: @file.Name </span>
+            <span>Size: @file.Size </span>
+            <span>File Type: @file.Type</span>
+        }
 
-            <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="agree_check_box" name="agree_check_box" required>
-                <label class="form-check-label" for="exampleCheck1">I confirm that the information given in this form is true, complete and accurate.</label>
-                <div class="valid-feedback">Valid.</div>
-                <div class="invalid-feedback">Check this checkbox to continue.</div>
-            </div>
-            <button @onclick="(e => CreateNewClientRequest())" type="submit" class="btn btn-primary">Submit</button>
-            @{Console.WriteLine("Client Form");}
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="agree_check_box" name="agree_check_box" required>
+            <label class="form-check-label" for="exampleCheck1">I confirm that the information given in this form is true, complete and accurate.</label>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Check this checkbox to continue.</div>
+        </div>
+        <button @onclick="(e => CreateNewClientRequest())" type="submit" class="btn btn-primary">Submit</button>
+        @{Console.WriteLine("Client Form");}
     </form>
     @*<form action="/action_page.php" class="was-validated">
             <div class="form-group">
@@ -157,9 +172,12 @@
 </div>
 @code {
     public IEnumerable<GovernorateEntity> governorates;
+    public IEnumerable<LicenseTypeEntity> licensesTypes;
     public IEnumerable<CityEntity> cities;
 
     string selectedGovernorateId { get; set; }
+    string selectedLicenseTypeId { get; set; }
+
     int selectedCityId { get; set; }
     string name { get; set; }
     string nationalId { get; set; }
@@ -195,6 +213,18 @@
         Task<IEnumerable<CityEntity>> asyncCities = CityService.GetCitiesAsync();
         cities = await asyncCities;
         if (Utils.Utility.IsAnyProduct(cities))
+        {
+            // Do something
+        }
+        else
+        {
+
+        }
+
+
+        Task<IEnumerable<LicenseTypeEntity>> asyncLicensesTypes = LicenseTypeService.GetLicensesTypesAsync();
+        licensesTypes = await asyncLicensesTypes;
+        if (Utils.Utility.IsAnyProduct(licensesTypes))
         {
             // Do something
         }
