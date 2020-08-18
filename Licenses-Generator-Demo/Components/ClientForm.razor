@@ -114,7 +114,7 @@
             <label class="custom-file-label" for="uploadedFile" > @fileName </label>
             <div class="invalid-feedback">Example invalid custom file feedback</div>
         </div>*@
-        <div class="custom-file mb-3">
+        <div class="custom-file mb-3" >
             <InputFile OnChange="HandleFileSelected" id="uploadedFile" required />
             <div class="valid-feedback">Valid.</div>
             <div class="invalid-feedback">Please Upload your documents.</div>
@@ -124,6 +124,7 @@
             <span>File Name: @file.Name </span>
             <span>Size: @file.Size </span>
             <span>File Type: @file.Type</span>
+            <span>File Path: @fileUpload.FilePath(file.Name)</span>
         }
 
         <div class="form-group form-check">
@@ -284,6 +285,15 @@
         var licenseRequestEntitySuccessFlag = await LicenseRequestService.SaveLicenseRequest(licenseRequestEntity);
         if (!licenseRequestEntitySuccessFlag)
             throw new Exception("Exception at saving LicenseRequest Entity");
+
+
+        //var documentEntity = new DocumentEntity
+        //{
+        //    ClientId = clientEntity.Id,
+        //    Comments = "bla bla bla...",
+        //    RequestId = licenseRequestEntity.Id,
+        //    Link = file.RelativePath
+        //};
 
     }
 

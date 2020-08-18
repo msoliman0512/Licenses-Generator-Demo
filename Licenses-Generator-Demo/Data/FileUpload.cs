@@ -28,5 +28,10 @@ namespace Licenses_Generator_Demo.Data
                 memoryStream.WriteTo(fileStream);
             }
         }
+
+        public string FilePath(string finename)
+        {
+            return  Path.Combine(_oWebHostEnvironment.ContentRootPath, "UploadedFiles", finename);
+        }
     }
 }

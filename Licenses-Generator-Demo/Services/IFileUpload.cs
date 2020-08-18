@@ -11,5 +11,8 @@ namespace Licenses_Generator_Demo.Services
 
 
         public  Task Upload(IFileListEntry file);
+
+        public string FilePath(string finename);
+
     }
 }
