@@ -32,6 +32,7 @@ namespace Licenses_Generator_Demo
             services.AddTransient<ClientsService>();
             services.AddScoped<IFileUpload, FileUpload>();
             services.AddTransient<LicensesTypesService>();
+            services.AddTransient<LicensesRequestsService>();
             services.AddFluentMigratorCore().ConfigureRunner(config => config.AddSqlServer()
                 .WithGlobalConnectionString("Data Source=DESKTOP-T5SCRE7;Initial Catalog=Licenses-Generator;Persist Security Info=True;User ID=SA;Password=Mahmoud_Soliman0512")
                 .ScanIn(Assembly.GetExecutingAssembly()).For.All()).AddLogging(config => config.AddFluentMigratorConsole());   /* .ScanIn(typeof(AddLogTable).Assembly).For.Migrations())
