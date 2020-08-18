@@ -12,6 +12,7 @@
 @inject ClientsService ClientService
 @inject LicensesTypesService LicenseTypeService
 @inject LicensesRequestsService LicenseRequestService
+@inject DocumentsService DocumentService
 @inject IFileUpload fileUpload
 @page "/clientForm"
 
@@ -294,7 +295,7 @@
             RequestId = licenseRequestEntity.Id,
             Link = fileUpload.FilePath(file.Name)
         };
-
+       
     }
 
 
