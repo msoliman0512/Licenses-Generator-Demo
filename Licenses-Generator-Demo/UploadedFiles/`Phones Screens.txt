@@ -1,7 +1,0 @@
-Standard HD : 1280*720
-
-Quad HD : 2560*1440 (4 times bigger than HD)
-
-Quarter HD : 960*540 
-
-4K, or UHD : 3840*2160
