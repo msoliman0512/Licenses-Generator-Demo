@@ -295,7 +295,9 @@
             RequestId = licenseRequestEntity.Id,
             Link = fileUpload.FilePath(file.Name)
         };
-       
+        var documentEntitySuccessFlag = await DocumentService.SaveDocument(documentEntity);
+        if (!documentEntitySuccessFlag)
+            throw new Exception("Exception at saving Document Entity");
     }
 
 
