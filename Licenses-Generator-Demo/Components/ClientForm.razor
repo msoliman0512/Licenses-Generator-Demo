@@ -287,13 +287,13 @@
             throw new Exception("Exception at saving LicenseRequest Entity");
 
 
-        //var documentEntity = new DocumentEntity
-        //{
-        //    ClientId = clientEntity.Id,
-        //    Comments = "bla bla bla...",
-        //    RequestId = licenseRequestEntity.Id,
-        //    Link = file.RelativePath
-        //};
+        var documentEntity = new DocumentEntity
+        {
+            ClientId = clientEntity.Id,
+            Comments = "bla bla bla...",
+            RequestId = licenseRequestEntity.Id,
+            Link = fileUpload.FilePath(file.Name)
+        };
 
     }
 
