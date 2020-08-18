@@ -273,7 +273,7 @@
 
         int selectedLicenseTypeIdInt = int.Parse(selectedLicenseTypeId);
 
-        var licensieRequestEntity = new LicenseRequestEntity
+        var licenseRequestEntity = new LicenseRequestEntity
         {
             ClientId = clientEntity.Id,
             Status = "Submitted",                // Submitted, Under Review, Rejected, Issued
@@ -281,6 +281,10 @@
             UserId = 0000,
             IssuedTime = DateTime.Now
         };
+        var licenseRequestEntitySuccessFlag = await LicenseRequestService.SaveLicenseRequest(licenseRequestEntity);
+        if (!licenseRequestEntitySuccessFlag)
+            throw new Exception("Exception at saving LicenseRequest Entity");
+
     }
 
 
