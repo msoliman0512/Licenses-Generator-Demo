@@ -116,7 +116,7 @@
             <div class="invalid-feedback">Example invalid custom file feedback</div>
         </div>*@
         <div class="custom-file mb-3" >
-            <InputFile OnChange="HandleFileSelected" id="uploadedFile" required />
+            <InputFile OnChange="HandleFileSelected" id="uploadedFile" />
             <div class="valid-feedback">Valid.</div>
             <div class="invalid-feedback">Please Upload your documents.</div>
         </div>
@@ -278,9 +278,9 @@
                 var licenseRequestEntity = new LicenseRequestEntity
                 {
                     ClientId = clientEntity.Id,
-                    Status = "Submitted",                // Submitted, Under Review, Rejected, Issued
-                    TypeId = selectedLicenseTypeIdInt,
                     UserId = 9999,
+                    TypeId = selectedLicenseTypeIdInt,
+                    Status = "Submitted",                // Submitted, Under Review, Rejected, Issued
                     IssuedTime = DateTime.Now
                 };
                 var licenseRequestEntitySuccessFlag = await LicenseRequestService.SaveLicenseRequest(licenseRequestEntity);
