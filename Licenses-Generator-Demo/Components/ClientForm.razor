@@ -239,7 +239,6 @@
 
     // GovernorateEntity selectedGovernorate;
 
-
     void SelectGovernorate(string governorateId)
     {
         selectedGovernorateId = governorateId;
@@ -255,49 +254,60 @@
         var clientEntitySuccessFlag = await ClientService.SaveClient(clientEntity);
         if (!clientEntitySuccessFlag)
             throw new Exception("Exception at saving Client Entity");
-
-        var slectedCity = from city in cities where city.Id == selectedCityId select city.Name;
-        int selectedGovernorateIdInt = int.Parse(selectedGovernorateId);
-        var slectedGovernorate = from governorate in governorates where governorate.Id == selectedGovernorateIdInt select governorate.Name;
-
-        var addressEntity = new AddressEntity
+        else
         {
-            ClientId = clientEntity.Id,
-            Address = address,
-            City = slectedCity.FirstOrDefault(),
-            Governorate = slectedGovernorate.FirstOrDefault(),
-            Zip = zipCode
-        };
-        var addressEntitySuccessFlag = await AddressService.SaveAddress(addressEntity);
-        if (!addressEntitySuccessFlag)
-            throw new Exception("Exception at saving Address Entity");
+            var slectedCity = from city in cities where city.Id == selectedCityId select city.Name;
+            int selectedGovernorateIdInt = int.Parse(selectedGovernorateId);
+            var slectedGovernorate = from governorate in governorates where governorate.Id == selectedGovernorateIdInt select governorate.Name;
+
+            var addressEntity = new AddressEntity
+            {
+                ClientId = clientEntity.Id,
+                Address = address,
+                City = slectedCity.FirstOrDefault(),
+                Governorate = slectedGovernorate.FirstOrDefault(),
+                Zip = zipCode
+            };
+            var addressEntitySuccessFlag = await AddressService.SaveAddress(addressEntity);
+            if (!addressEntitySuccessFlag)
+                throw new Exception("Exception at saving Address Entity");
+            else
+            {
+                int selectedLicenseTypeIdInt = int.Parse(selectedLicenseTypeId);
+
+                var licenseRequestEntity = new LicenseRequestEntity
+                {
+                    ClientId = clientEntity.Id,
+                    Status = "Submitted",                // Submitted, Under Review, Rejected, Issued
+                    TypeId = selectedLicenseTypeIdInt,
+                    UserId = 9999,
+                    IssuedTime = DateTime.Now
+                };
+                var licenseRequestEntitySuccessFlag = await LicenseRequestService.SaveLicenseRequest(licenseRequestEntity);
+                if (!licenseRequestEntitySuccessFlag)
+                    throw new Exception("Exception at saving LicenseRequest Entity");
+                else
+                {
+                    var documentEntity = new DocumentEntity
+                    {
+                        ClientId = clientEntity.Id,
+                        Comments = "bla bla bla...",
+                        RequestId = licenseRequestEntity.Id,
+                        Link = fileUpload.FilePath(file.Name)
+                    };
+                    var documentEntitySuccessFlag = await DocumentService.SaveDocument(documentEntity);
+                    if (!documentEntitySuccessFlag)
+                        throw new Exception("Exception at saving Document Entity");
+                }
 
 
-        int selectedLicenseTypeIdInt = int.Parse(selectedLicenseTypeId);
-
-        var licenseRequestEntity = new LicenseRequestEntity
-        {
-            ClientId = clientEntity.Id,
-            Status = "Submitted",                // Submitted, Under Review, Rejected, Issued
-            TypeId = selectedLicenseTypeIdInt,
-            UserId = 0000,
-            IssuedTime = DateTime.Now
-        };
-        var licenseRequestEntitySuccessFlag = await LicenseRequestService.SaveLicenseRequest(licenseRequestEntity);
-        if (!licenseRequestEntitySuccessFlag)
-            throw new Exception("Exception at saving LicenseRequest Entity");
+            }
 
 
-        var documentEntity = new DocumentEntity
-        {
-            ClientId = clientEntity.Id,
-            Comments = "bla bla bla...",
-            RequestId = licenseRequestEntity.Id,
-            Link = fileUpload.FilePath(file.Name)
-        };
-        var documentEntitySuccessFlag = await DocumentService.SaveDocument(documentEntity);
-        if (!documentEntitySuccessFlag)
-            throw new Exception("Exception at saving Document Entity");
+
+        }
+
+
     }
 
 
